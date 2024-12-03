@@ -1,0 +1,17 @@
+# a docker-compose file can be used to simplify spinning up containers (tiny
+# vms) instead of having to remember multiple docker commands.
+services:
+  postgres:
+    image: postgres:17
+    environment:
+      # password must be set explicitly. do not use this technique for anything
+      # other than "I want a local postgres db to test an idea"
+      POSTGRES_PASSWORD: "password"
+    ports:
+      - "5432:5432" # bind :5432 on the host machine to :5432 on the container
+    healthcheck:
+      # tells docker how to check if the container has started and is ready for use
+      test: ["CMD-SHELL", "pg_isready -U postgres -d postgres"]
+      interval: 5s
+      retries: 5
+      timeout: 5s
