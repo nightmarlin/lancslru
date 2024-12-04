@@ -1,3 +1,14 @@
+// Command birthdayserver starts a http server on port :8080 that serves the
+// birthdays for people's names. It requires that a PostgreSQL database be
+// accessible on port :5432 - one is included in the docker-compose.yml file.
+//
+// Suggested usage:
+//
+//	cd lancs-lru/cmd/birthdayserver
+//	docker compose up --detach
+//	go run server.go
+//
+// Remember to run `docker compose down` when you're finished.
 package main
 
 import (
@@ -19,6 +30,8 @@ import (
 )
 
 var initBirthdays = map[internal.Name]string{
+	// for the record: these aren't real birthdays.
+
 	"lewis":   "2002-01-22",
 	"noah":    "1999-10-13",
 	"finn":    "2000-08-11",
@@ -26,6 +39,8 @@ var initBirthdays = map[internal.Name]string{
 	"leanne":  "1995-09-19",
 }
 
+// The main package is a special package that indicates an entry point to the
+// program at main.main. Try running it with `go run server.go`.
 func main() {
 	slog.SetDefault(slog.New(slog.NewTextHandler(os.Stderr, nil)))
 

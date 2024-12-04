@@ -15,6 +15,9 @@ import (
 
 // A test is just a function named "Test..." that takes a *testing.T, in a file
 // named "*_test.go".
+//
+// All the tests in a package can be run with the simple command `go test .`. To
+// run all tests in every sub-package, use `go test ./...`
 func TestCache_Lookup(t *testing.T) {
 	t.Parallel() // tests aren't parallel by default, but it's trivial to make them so.
 
